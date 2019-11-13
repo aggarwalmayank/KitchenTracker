@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "111917023913",
+    "firebase_url": "https://tracker-ca881.firebaseio.com",
+    "project_id": "tracker-ca881",
+    "storage_bucket": "tracker-ca881.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:111917023913:android:cb13cb652186a88f449fb8",
+        "android_client_info": {
+          "package_name": "com.appsaga.kitchentracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "111917023913-ani5avv8in44f1cbqjve5u6mf307futr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-iIlK4U3pMc04bKDlOB67-mKb8k2uxdw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "111917023913-ani5avv8in44f1cbqjve5u6mf307futr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
