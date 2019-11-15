@@ -4,33 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.appsaga.kitchentracker.MainActivity">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/textView" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
-        android:layout_below="@+id/textView"
-        android:layout_toEndOf="@+id/textView"
-        android:layout_marginTop="151dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/button"
+        android:textSize="22sp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="58dp" />
+        android:layout_marginTop="20dp"
+        android:textColor="#000"
+        android:id="@+id/value"/>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id = "@+id/BarChart"
+        android:layout_width = "fill_parent"
+        android:layout_height = "fill_parent"
+        android:layout_below="@id/value" />
 </RelativeLayout>
