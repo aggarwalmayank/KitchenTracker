@@ -1,8 +1,12 @@
 package com.appsaga.kitchentracker;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,14 +31,13 @@ import java.util.TreeMap;
 
 
 public class MainActivity extends AppCompatActivity {
-    TextView value;
-    Button b1;
+    TextView value,expiry;
+    Button viewChart,change_xpiry;
     DatabaseReference databaseReference;
+    EditText expiryET;
 
-    BarChart barChart;
-    BarData barData;
-    BarDataSet barDataSet;
     ArrayList<BarEntry> barEntries;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +45,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         value = findViewById(R.id.value);
+        expiry=findViewById(R.id.expiry);
+        change_xpiry=findViewById(R.id.change_expiry);
+        expiryET=findViewById(R.id.expiry_edit_text);
+
+        viewChart=findViewById(R.id.view_chart);
         databaseReference= FirebaseDatabase.getInstance().getReference("Container1");
+        progressDialog=new ProgressDialog(MainActivity.this);
+        progressDialog.setMessage("Loading");
 
-        barChart = findViewById(R.id.BarChart);
-
+        progressDialog.show();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 HashMap<String,String> map = (HashMap<String, String>)dataSnapshot.child("Date").getValue();
+                String xpiry = dataSnapshot.child("Expiry").getValue(String.class);
 
                 TreeMap<String,String> values = new TreeMap<String, String>();
                 values.putAll(map);
                 TreeMap.Entry<String,String> lastEntry = values.lastEntry();
                 value.setText(lastEntry.getValue());
+                expiry.setText(xpiry);
 
                 int i=1;
                 barEntries=new ArrayList<>();
@@ -71,12 +82,18 @@ public class MainActivity extends AppCompatActivity {
                 barEntries.add(new BarEntry(7f, 4));
                 barEntries.add(new BarEntry(3f, 3));*/
                 Log.d("Test",barEntries.size()+"");
-                barDataSet = new BarDataSet(barEntries, "");
-                barData = new BarData(barDataSet);
-                barChart.setData(barData);
-                barDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-                barDataSet.setValueTextColor(Color.BLACK);
-                barDataSet.setValueTextSize(18f);
+
+                viewChart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(MainActivity.this,ViewChart.class);
+                        intent.putParcelableArrayListExtra("barEntries",barEntries);
+                        startActivity(intent);
+                    }
+                });
+
+                progressDialog.dismiss();
             }
 
             @Override
@@ -87,6 +104,18 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        change_xpiry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                String expiry_date = expiryET.getText().toString().trim();
+
+                if(!expiry.equals(""))
+                {
+                    databaseReference.child("Expiry").setValue(expiry_date);
+                    expiry.setText(expiry_date);
+                }
+            }
+        });
     }
 }
