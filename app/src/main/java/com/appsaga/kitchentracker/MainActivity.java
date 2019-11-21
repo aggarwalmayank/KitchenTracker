@@ -32,9 +32,9 @@ import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
     TextView value,expiry;
-    Button viewChart,change_xpiry;
+    Button viewChart,change_xpiry,change_threshold;
     DatabaseReference databaseReference;
-    EditText expiryET;
+    EditText expiryET,thresholdET;
 
     ArrayList<BarEntry> barEntries;
     ProgressDialog progressDialog;
@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         expiry=findViewById(R.id.expiry);
         change_xpiry=findViewById(R.id.change_expiry);
         expiryET=findViewById(R.id.expiry_edit_text);
+        change_threshold=findViewById(R.id.change_threshold);
+        thresholdET=findViewById(R.id.threshold_edit_text);
 
         viewChart=findViewById(R.id.view_chart);
         databaseReference= FirebaseDatabase.getInstance().getReference("Container1");
@@ -110,10 +112,31 @@ public class MainActivity extends AppCompatActivity {
 
                 String expiry_date = expiryET.getText().toString().trim();
 
-                if(!expiry.equals(""))
+                if(!expiry_date.equals("") && expiry_date.length()==10 && expiry_date.charAt(4)=='-' && expiry_date.charAt(7)=='-')
                 {
                     databaseReference.child("Expiry").setValue(expiry_date);
                     expiry.setText(expiry_date);
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this, "Invalid date format", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        change_threshold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String threshold_value = thresholdET.getText().toString().trim();
+
+                if(!threshold_value.equals(""))
+                {
+                    databaseReference.child("Threshold").setValue(threshold_value);
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this, "Invalid threshold value", Toast.LENGTH_SHORT).show();
                 }
             }
         });

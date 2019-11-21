@@ -62,8 +62,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/expiry"
         android:layout_centerHorizontal="true"
-        android:hint="Enter New Expiry Date"
-        android:layout_marginTop="50dp"/>
+        android:hint="YYYY-MM-DD"
+        android:layout_marginTop="50dp"
+        android:inputType="date"/>
 
     <Button
         android:id="@+id/view_chart"
@@ -73,4 +74,23 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"/>
+
+    <EditText
+        android:id="@+id/threshold_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/change_expiry"
+        android:layout_centerHorizontal="true"
+        android:hint="Enter Threshold"
+        android:layout_marginTop="50dp"
+        android:inputType="number"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/threshold_edit_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Change Threshold"
+        android:id="@+id/change_threshold"/>
 </RelativeLayout>
